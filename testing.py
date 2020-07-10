@@ -38,12 +38,12 @@ tempdir = tempfile.gettempdir()
 def command(ctx, branch_url, branch, download_dir, provider, show):
     _uuid = uuid.uuid1()
     github_regex = r'(https:.*?anime-downloader/)(tree/([^/]*)|)'
-    if re.search(github_regex,branch_url).group(1):
-        branch_url = re.search(github_regex,branch_url).group(1)
-        print(f'Branch url updated to: "{branch_url}"')
     if re.search(github_regex,branch_url).group(3):
         branch = re.search(github_regex,branch_url).group(3)
         print(f'Branch updated to: "{branch}"')
+    if re.search(github_regex,branch_url).group(1):
+        branch_url = re.search(github_regex,branch_url).group(1)
+        print(f'Branch url updated to: "{branch_url}"')
     path = f'{download_dir}/anime_downloader_{branch}_{_uuid}'
     pipe = '> /dev/null 2>&1'
     os.system(f'git clone -b {branch} {branch_url} {path}')
